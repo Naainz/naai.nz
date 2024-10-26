@@ -1,0 +1,139 @@
+---
+import Cmd from "~/components/Cmd.astro";
+import Project from "~/components/Project.astro";
+import IconDocument from "~/components/icons/IconDocument.astro";
+import IconEmail from "~/components/icons/IconEmail.astro";
+import IconGitHub from "~/components/icons/IconGitHub.astro";
+import { type ProjectProps } from "~/consts";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+
+import { getCollection } from "astro:content";
+import FormattedDate from "~/components/FormattedDate.astro";
+
+const featuredProject: ProjectProps = {
+  name: "LuminateOS",
+  description:
+  "A Unique smartphone operating system that aims to be a privacy-focused alternative to Android and iOS.",
+  stack: "Astro.js, Java, Python, HTML5, Kotlin",
+  repo: "https://github.com/naainz",
+  demo: "https://luminateos.com",
+};
+
+const latestPost = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+)[0];
+---
+
+<BaseLayout>
+  <div class="flex w-full flex-col gap-40">
+    <div class="mt-4 flex w-full flex-col items-center gap-4">
+      <div
+        class="flex w-full flex-col items-center justify-center gap-4 text-gruvbox-fg dark:text-gruvboxDark-fg sm:flex-row"
+      >
+        <img
+          src="./images/Naainz.png"
+          alt="naainz's avatar"
+          width={96}
+          height={96}
+          class="nb-shadow rounded-sm border border-gruvbox-fg bg-gruvbox-bg transition-shape duration-200 dark:rounded-[48px] dark:border-none dark:shadow-none dark:hover:scale-[1.04]"
+        />
+        <div class="flex flex-col flex-wrap">
+          <h1 class="text-center font-outfit text-3xl">Stefan</h1>
+          <span class="text-center font-azeret text-lg sm:text-start">// naainz</span>
+        </div>
+      </div>
+      <p
+        class="my-4 flex w-full max-w-prose indent-8 font-sans font-medium [text-align-last:center] sm:my-1"
+      >
+        I'm Naainz, a developer from the United Kingdom. I currently specialize in creating
+        full-stack web experiences using a diverse range of frameworks and technologies.
+      </p>
+      <div class="flex w-full max-w-prose flex-col items-center justify-evenly gap-3 sm:flex-row">
+        <a
+          href="mailto:stefan@naainz.tech"
+          title="stefan@naainz.tech"
+          class="flex items-center gap-1 hover:underline"
+        >
+          <IconEmail class="h-5 w-5 text-gruvbox-yellow" /> Email
+        </a>
+        <a
+          href="https://github.com/naainz"
+          title="naainz"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1 hover:underline"
+        >
+          <IconGitHub class="h-5 w-5 text-gruvbox-fg0 dark:text-gruvboxDark-fg0" /> GitHub
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4">
+      <Cmd text="stuff --featured" />
+
+      <div class="flex w-full flex-wrap justify-center gap-3 dark:gap-2">
+        <Project
+          name={featuredProject.name}
+          description={featuredProject.description}
+          stack={featuredProject.stack}
+          repo={featuredProject.repo}
+          demo={featuredProject.demo}
+        />
+        <div
+          class="nb-shadow flex w-full max-w-[40ch] flex-col gap-2 rounded-sm border border-gruvbox-fg bg-gruvbox-bg p-4 transition-shape dark:rounded-lg dark:border-none dark:bg-gruvboxDark-bg dark:shadow-md dark:hover:scale-[1.02]"
+        >
+          <h2 class="text-2xl font-bold text-gruvbox-fg dark:text-gruvboxDark-fg">
+            {latestPost.data.title}
+          </h2>
+          <div class="mb-2 text-sm text-gruvbox-fg3 dark:text-gruvboxDark-fg4">
+            <div class="inline-flex items-center">
+              <IconDocument class="h-3 w-3" />
+            </div>
+            {" "}Latest post - <FormattedDate date={latestPost.data.pubDate} />
+          </div>
+          <p class="indent-8">{latestPost.data.description}</p>
+          <a
+            href={`/projects/${latestPost.slug.split("/").pop()}/`}
+            title="See latest project"
+            class="flex items-center justify-end text-sm font-bold text-gruvbox-fg3 transition-all hover:text-gruvbox-blue dark:text-gruvboxDark-fg4 dark:hover:text-gruvboxDark-blue"
+          >
+            Read post
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              class="h-5 w-5"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5">
+      <Cmd text="getintouch" />
+      <div class="flex flex-col items-center gap-3">
+        <span>
+          <span
+            class="inline-flex h-3 w-3 rounded-full border border-gruvbox-fg0 bg-gruvbox-aqua2 dark:border-none"
+          ></span>
+            I'm currently open to new opportunities and projects to collaborate on.
+            From full-stack web development to mobile app development, I'm always
+            looking to expand my skillset and learn new things.
+            <br>
+            You can contact me on <a
+              class="hover:underline dark:text-gruvboxDark-fg0"
+              href="mailto:stefan@naainz.tech">stefan@naainz.tech!</a>
+        </span>
+      </div>
+    </div>
+
+    <div class="my-4 flex w-full flex-col items-center gap-2">
+      
+    </div>
+  </div>
+</BaseLayout>
+  
