@@ -1,5 +1,5 @@
 export const SITE_TITLE = "Naainz";
-export const SITE_DESCRIPTION = "Passionate and very knowledgable full-stack developer with a strong background in web development and experience in building web applications.";
+export const SITE_DESCRIPTION = "Software developer from GB who loves to code and learn all things tech.";
 
 export interface ProjectProps {
     name: string;
