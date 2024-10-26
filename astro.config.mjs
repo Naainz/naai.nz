@@ -5,22 +5,18 @@ import sitemap from "@astrojs/sitemap";
 import solidJs from "@astrojs/solid-js";
 import tailwind from "@astrojs/tailwind";
 
-import vercel from "@astrojs/vercel/serverless";
-
 // https://astro.build/config
 export default defineConfig({
-  markdown: {
-    shikiConfig: { theme: "dark-plus" },
+  vite: {
+    define: {
+      'import.meta.env.CF_PAGES_BRANCH': JSON.stringify(process.env.CF_PAGES_BRANCH),
+      'import.meta.env.CF_PAGES_COMMIT_SHA': JSON.stringify(process.env.CF_PAGES_COMMIT_SHA),
+    },
   },
-  site: "https://naainz.tech",
   integrations: [
-    mdx(),
+    tailwind(),
     sitemap(),
-    tailwind({
-      applyBaseStyles: false,
-    }),
+    mdx(),
     solidJs(),
-  ],
-  output: "hybrid",
-  adapter: vercel({ functionPerRoute: false }),
+  ]
 });
