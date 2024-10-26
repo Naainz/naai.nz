@@ -13,10 +13,16 @@ export default defineConfig({
       'import.meta.env.CF_PAGES_COMMIT_SHA': JSON.stringify(process.env.CF_PAGES_COMMIT_SHA),
     },
   },
+  markdown: {
+    shikiConfig: { theme: "dark-plus" },
+  },
+  site: "https://naai.nz",
   integrations: [
-    tailwind(),
-    sitemap(),
     mdx(),
+    sitemap(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
     solidJs(),
   ]
 });
